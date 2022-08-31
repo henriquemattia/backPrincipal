@@ -1,7 +1,12 @@
-from crypt import methods
+
+
+import json
+
+
 from flask import Flask, request
 from database import cursor
 from database import connection
+
 
 from flask_cors import CORS
 
@@ -9,7 +14,7 @@ app = Flask(__name__)
 
 CORS(app)
 
-# ola mundo
+
 @app.route("/users", methods=["POST"])
 def create_user():
     body = request.json
@@ -55,3 +60,38 @@ def verfiy_users():
 #
 #     return {"id": primeiro_aluno, "nome": primeiro_aluno[1]}, 200
 
+
+#            ROTA DE TODOS OS PRODUTOS 
+@app.route('/produtos')
+def all_products():
+    
+    list =  [{ "masculino": {
+                    "image": "camisa",
+                    "valor": 34224,
+                    "name": "coisa feia"
+                },
+                "feminino": {
+                    "image": "camisa",
+                    "valor": 2222224,
+                    "name": "tavinho viado"
+                }
+                }]
+    
+    return json.dumps(list)
+
+
+@app.route('/produtos/camisaAzul')
+def prod_camisaAzul():
+    
+    infan =  [{ "cammisaAzul": {
+                    "name": "camisa azul",
+                    "price": 184,
+                    "desc_price": 369,
+                    "img_index": "imagej pricipal",
+                    "img_front": "imagem frontal",
+                    "img_side": "imagem lateral",
+                    "img_back": "imagem de tras"
+                }
+                }]
+    
+    return json.dumps(infan)
