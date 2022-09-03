@@ -17,4 +17,11 @@ Após clonar o repositório, executo os seguintes comandos:
 ``` 
 pip install -r requirements.txt
 ```
-
+Após isso, precisará criar um arquivo ".env" com os seguintes conteudos dentro dele:
+```
+DB_HOST=
+DB_NAME=
+DB_USER=
+DB_PASS=
+```
+Aí é só adicionar seus dados e usar tranquilamente!
