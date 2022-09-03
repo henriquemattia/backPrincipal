@@ -10,3 +10,11 @@ Repositório temporário! Futuramente será colocado junto ao projeto e-commerce
 
 ## Banco de dados
 O banco de dados utilizado nesse projeto foi o PostreSQL, sendo necessário o driver de conectividade psycopg-bynary!
+
+## Intruções para uso!
+
+Após clonar o repositório, executo os seguintes comandos:
+``` 
+pip install -r requirements.txt
+```
+
