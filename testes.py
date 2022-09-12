@@ -1,16 +1,16 @@
-import json
+# import json
 
 
-from flask import Flask, request
-from database import cursor
-from database import connection
+# from flask import Flask, request
+# from database import cursor
+# from database import connection
 
 
-from flask_cors import CORS
+# from flask_cors import CORS
 
-app = Flask(__name__)
+# app = Flask(__name__)
 
-CORS(app)
+# CORS(app)
 
 
 
@@ -51,47 +51,47 @@ CORS(app)
 
     # TEMPORARIO! // TESTE 
 
-@app.route('/produtos')
-def all_products():
+# @app.route('/produtos')
+# def all_products():
     
-    list =  [{ "masculino": {
-                    "image": "camisa",
-                    "valor": "R$ 344",
-                    "valorDesc": "R$ 500",
-                    "name": "CAMISA MASCULINA",
-                    "rota": "camisa1"
-                    },
-                    "feminino": {
-                    "image": "camisa",
-                    "valor": "R$ 50",
-                    "valorDesc": "R$ 100",
-                    "name": "CAMISA FEMININA",
-                    "rota": "camisa2"
-                    }
-                }
-             ]
-    return json.dumps(list)
+#     list =  [{ "masculino": {
+#                     "image": "camisa",
+#                     "valor": "R$ 344",
+#                     "valorDesc": "R$ 500",
+#                     "name": "CAMISA MASCULINA",
+#                     "rota": "camisa1"
+#                     },
+#                     "feminino": {
+#                     "image": "camisa",
+#                     "valor": "R$ 50",
+#                     "valorDesc": "R$ 100",
+#                     "name": "CAMISA FEMININA",
+#                     "rota": "camisa2"
+#                     }
+#                 }
+#              ]
+#     return json.dumps(list)
 
 
     # ROTAS DAS SESSOES INDIVIUDAIS
         
     #   fazer um select somente na tabela de produtos mascuolino 
-@app.route('/masculino')
-def prod_masculino():
+# @app.route('/masculino')
+# def prod_masculino():
 
-    masc_prods = [{
-                    "image": "camisa",
-                    "valor": "R$ 344",
-                    "valorDesc": "R$ 500",
-                    "name": "CAMISA VERMELHA",
-                    "rota": "camisa-vermelha"
-                    },
-                    {
-                    "image": "camisa",
-                    "valor": "R$ 50",
-                    "valorDesc": "R$ 200",
-                    "name": "CAMISA LARANJA",
-                    "rota": "camisa-laranja"
-                    }
-                   ]
-    return json.dumps(masc_prods)
+#     masc_prods = [{
+#                     "image": "camisa",
+#                     "valor": "R$ 344",
+#                     "valorDesc": "R$ 500",
+#                     "name": "CAMISA VERMELHA",
+#                     "rota": "camisa-vermelha"
+#                     },
+#                     {
+#                     "image": "camisa",
+#                     "valor": "R$ 50",
+#                     "valorDesc": "R$ 200",
+#                     "name": "CAMISA LARANJA",
+#                     "rota": "camisa-laranja"
+#                     }
+#                    ]
+#     return json.dumps(masc_prods)

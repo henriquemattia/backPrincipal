@@ -1,7 +1,8 @@
+from cgi import print_form
 import json
 
 
-from flask import Flask, request
+from flask import Flask, Request, Response
 from database import cursor
 from database import connection
 
@@ -15,4 +16,7 @@ CORS(app)
 
 @app.route('/mascu')
 def rota_masculino():
-    cursor.execute()
+    cursor.execute("SELECT * FROM public.produtos WHERE categoria = 'masculino' AND destaque = 'TRUE'")
+    retorno = cursor.fetchall()
+    print(retorno)
+    return Response()
