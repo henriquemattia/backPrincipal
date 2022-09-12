@@ -16,6 +16,6 @@ CORS(app)
 
 @app.route('/mascu')
 def rota_masculino():
-    cursor.execute("SELECT * FROM public.produtos WHERE categoria = 'masculino' AND destaque = 'TRUE'")
+    cursor.execute("SELECT * FROM public.produtos WHERE categoria = 'masculino'")
     retorno = cursor.fetchall()
-    return retorno
+    return {"masculinos": retorno}
