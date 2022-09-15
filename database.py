@@ -1,5 +1,4 @@
-from curses import echo
-from flask import Flask, request
+from flask import Flask
 import psycopg2
 import os
 from dotenv import load_dotenv

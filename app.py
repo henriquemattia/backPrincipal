@@ -1,10 +1,6 @@
-from cgi import print_form
-import json
 
-
-from flask import Flask, make_response, jsonify
+from flask import Flask, make_response, jsonify, Response
 from database import cursor
-from database import connection
 
 
 from flask_cors import CORS
@@ -16,7 +12,7 @@ CORS(app)
 # ROTA DE TODOS OS PRODUTOS
 @app.route('/produtos')
 def all_prosucts():
-    cursor.execute("SELECT * FROM public.produtos")
+    cursor.execute("SELECT * FROM public.produtos WHERE is_available")
     res = cursor.fetchall()
     dest = list()
     for item in res:
@@ -25,11 +21,12 @@ def all_prosucts():
                 'id': item[0],
                 'categoria': item[1],
                 'nome': item[2],
-                'price': item[3],
-                'desc_price': item[4]
+                'preco': item[3],
+                'desc_preco': item[4],
+                'rota': item[5]
+                # 'img_front': item[6]
             }
         )
-     
     return make_response(
         jsonify(
             dados=dest
@@ -43,7 +40,7 @@ def all_prosucts():
     # ROTA DSE PRODUTOS QUE ESTAO EM DESTAQUE NA PAGINA INICIAL
 @app.route('/destaque')
 def destaques():
-    cursor.execute("SELECT * FROM public.produtos WHERE destaque = 'TRUE'")
+    cursor.execute("SELECT * FROM produtos p FULL OUTER JOIN images i ON p.id = i.id WHERE destaque = 'TRUE' and is_available = 'TRUE'")
     res = cursor.fetchall()
     dest = list()
     for item in res:
@@ -52,11 +49,16 @@ def destaques():
                 'id': item[0],
                 'categoria': item[1],
                 'nome': item[2],
-                'price': item[3],
-                'desc_price': item[4]
+                'preco': item[3],
+                'desc_preco': item[4],
+                'rota': item[5],
+                'img_main': item[10],
+                'img_front': item[11],
+                'img_right': item[12],
+                'img_left': item[13],
+                'img_back': item[14]
             }
         )
-     
     return make_response(
         jsonify(
             dados=dest
@@ -65,19 +67,85 @@ def destaques():
 
 
 #  ROTA DE PRODUTOS MASCULINO
-@app.route('/mascu')
+@app.route('/masculino')
 def rota_masculino():
-    cursor.execute("SELECT * FROM public.produtos WHERE categoria = 'masculino'")
+    cursor.execute("SELECT * FROM public.produtos WHERE categoria = 'masculino' AND is_available = 'TRUE'")
     res = cursor.fetchall()
-    return {"Masculino": res}
+    print(res)
+    masc = list()
+    for item in res:
+        masc.append(
+            {
+                'id': item[0],
+                'categoria': item[1],
+                'nome': item[2],
+                'preco': item[3],
+                'desc_preco': item[4],
+                'rota': item[5],
+                'img_front': item[6]
+            }
+        )
+    return res
+
+    #     make_response(
+    #     jsonify(
+    #         dados=masc
+    #     )
+    # )
 
 
 #  ROTA DE PRODUTOS FEMININOS
 @app.route('/feminino')
 def rota_feminino():
-    cursor.execute("SELECT * FROM public.produtos WHERE categoria = 'feminino'")
+    cursor.execute("SELECT * FROM public.produtos WHERE categoria = 'feminino' AND is_available = 'TRUE'")
     res = cursor.fetchall()
-    return {"Feminio": res}
+    femin = list()
+    for item in res:
+        femin.append(
+            {
+                'id': item[0],
+                'categoria': item[1],
+                'nome': item[2],
+                'preco': item[3],
+                'desc_prec0': item[4],
+                'rota': item[5],
+                'img_front': item[6]
+            }
+        )
+    return make_response(
+        jsonify(
+            dados=femin
+        )
+    )
 
 
 #  ROTA DE PRODUTOS INFANTIS
+
+# ROTA DE TESTE MASCULINO
+@app.route('/ams')
+def rota_ams():
+    cursor.execute("SELECT * FROM produtos p FULL OUTER JOIN images i ON p.id = i.id WHERE categoria = 'masculino' and is_available = 'TRUE' ")
+    res = cursor.fetchall()
+    print(res)
+    ams = list()
+    for item in res:
+        ams.append(
+            {
+                'id': item[0],
+                'categoria': item[1],
+                'nome': item[2],
+                'preco': item[3],
+                'desc_preco': item[4],
+                'rota': item[5],
+                'img_main': item[10],
+                'img_front': item[11],
+                'img_right': item[12],
+                'img_left': item[13],
+                'img_back': item[14]
+            }
+        )
+    return  make_response(
+        jsonify(
+            dados=ams
+        )
+    )
