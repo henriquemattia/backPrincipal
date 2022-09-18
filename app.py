@@ -12,7 +12,7 @@ CORS(app)
 # ROTA DE TODOS OS PRODUTOS
 @app.route('/produtos')
 def all_prosucts():
-    cursor.execute("SELECT * FROM produtos p FULL OUTER JOIN images i ON p.id = i.id WHERE is_available = 'TRUE'")
+    cursor.execute("SELECT * FROM produtos p FULL OUTER JOIN images i ON p.img_id = i.id WHERE is_available = 'TRUE'")
     res = cursor.fetchall()
     dest = list()
     for item in res:
@@ -44,7 +44,7 @@ def all_prosucts():
     # ROTA DSE PRODUTOS QUE ESTAO EM DESTAQUE NA PAGINA INICIAL
 @app.route('/destaque')
 def destaques():
-    cursor.execute("SELECT * FROM produtos p FULL OUTER JOIN images i ON p.id = i.id WHERE destaque = 'TRUE' and is_available = 'TRUE'")
+    cursor.execute("SELECT * FROM produtos p FULL OUTER JOIN images i ON p.img_id = i.id WHERE destaque = 'TRUE' and is_available = 'TRUE'")
     res = cursor.fetchall()
     dest = list()
     for item in res:
@@ -73,7 +73,7 @@ def destaques():
 #  ROTA DE PRODUTOS MASCULINO
 @app.route('/masculino')
 def rota_masculino():
-    cursor.execute("SELECT * FROM produtos p FULL OUTER JOIN images i ON p.id = i.id WHERE categoria = 'masculino' and is_available = 'TRUE'")
+    cursor.execute("SELECT * FROM produtos p FULL OUTER JOIN images i ON p.img_id = i.id WHERE categoria = 'masculino' and is_available = 'TRUE'")
     res = cursor.fetchall()
     masc = list()
     for item in res:
@@ -102,7 +102,7 @@ def rota_masculino():
 #  ROTA DE PRODUTOS FEMININOS
 @app.route('/feminino')
 def rota_feminino():
-    cursor.execute("SELECT * FROM produtos p FULL OUTER JOIN images i ON p.id = i.id WHERE categoria = 'feminino' and is_available = 'TRUE'")
+    cursor.execute("SELECT * FROM produtos p FULL OUTER JOIN images i ON p.img_id = i.id WHERE categoria = 'feminino' and is_available = 'TRUE'")
     res = cursor.fetchall()
     femin = list()
     for item in res:
@@ -133,7 +133,7 @@ def rota_feminino():
 # ROTA DE TESTE MASCULINO
 @app.route('/ams')
 def rota_ams():
-    cursor.execute("SELECT * FROM produtos p FULL OUTER JOIN images i ON p.id = i.id WHERE categoria = 'masculino' and is_available = 'TRUE' ")
+    cursor.execute("SELECT * FROM produtos p FULL OUTER JOIN images i ON p.img_id = i.id WHERE categoria = 'masculino' and is_available = 'TRUE' ")
     res = cursor.fetchall()
     print(res)
     ams = list()
