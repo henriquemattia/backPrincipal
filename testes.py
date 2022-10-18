@@ -1,97 +1,42 @@
-# import json
+from flask import Flask, request
+from database import cursor
+from database import connection
 
 
-# from flask import Flask, request
-# from database import cursor
-# from database import connection
+from flask_cors import CORS
 
+app = Flask(__name__)
 
-# from flask_cors import CORS
+CORS(app)
 
-# app = Flask(__name__)
-
-# CORS(app)
-
-
-
-#            ROTA DE TODOS OS PRODUTOS 
-# @app.route('/produtos')
-# def all_products():
+@app.route("/register", methods=["POST"])
+def create_user():
+    body = request.json
+    username = body["name"]
+    email = body["email"]
+    password =body["password"]
     
-#     list = [{"masculino": [{
-#                         "image": "camisa",
-#                         "valor": "R$ 344",
-#                         "valorDesc": "R$ 500",
-#                         "name": "camisa Masculina",
-#                         "rota": "camisa1"
-#                         },
-#                         {"image": "moleton",
-#                         "valor": "R$ 555",
-#                         "valorDesc": "R$ 222",
-#                         "name": "moleton Masculina",
-#                         "rota": "moleton"
-#                     }]},
-#             {"feminino": [{
-#                         "image": "camisa inverno",
-#                         "valor": "R$ 50",
-#                         "valorDesc": "R$ 100",
-#                         "name": "camisa Feminina",
-#                         "rota": "camisa2"
-#                         },
-#                         {
-#                         "image": "camisa verao",
-#                         "valor": "R$ 300",
-#                         "valorDesc": "R$ 200",
-#                         "name": "camisa Feminina",
-#                         "rota": "camisa2"
-#                     }]}
-#             ]
-                
-#     return json.dumps(list)
+    cursor.execute(f"INSERT INTO users (name, email, password) VALUES ('{username}', '{email}', '{password}');")
+    connection.commit()
 
-    # TEMPORARIO! // TESTE 
+    return {"ola": "tudo certo?"}
 
-# @app.route('/produtos')
-# def all_products():
+
+# Rota de verificaçaode usuario no banco de dados
+@app.route("/login", methods=["GET"])
+def verfiy_users():
+    body = request.json
+    email = body["email"]
+    password =body["password"]
     
-#     list =  [{ "masculino": {
-#                     "image": "camisa",
-#                     "valor": "R$ 344",
-#                     "valorDesc": "R$ 500",
-#                     "name": "CAMISA MASCULINA",
-#                     "rota": "camisa1"
-#                     },
-#                     "feminino": {
-#                     "image": "camisa",
-#                     "valor": "R$ 50",
-#                     "valorDesc": "R$ 100",
-#                     "name": "CAMISA FEMININA",
-#                     "rota": "camisa2"
-#                     }
-#                 }
-#              ]
-#     return json.dumps(list)
-
-
-    # ROTAS DAS SESSOES INDIVIUDAIS
+    print(email)
+    print(password)
+    
+    # emailVerify = cursor.execute(f"SELECT email FROM users WHERE email = '{email}'"), cursor.fetchall()
+    # passverify = cursor.execute(f"SELECT password FROM users WHERE password = '{password}'"), cursor.fetchall()
+    cursor.execute(f"SELECT * FROM users WHERE email ={email} AND password ={password}")
+    cursor.fetchall()    
+    
         
-    #   fazer um select somente na tabela de produtos mascuolino 
-# @app.route('/masculino')
-# def prod_masculino():
 
-#     masc_prods = [{
-#                     "image": "camisa",
-#                     "valor": "R$ 344",
-#                     "valorDesc": "R$ 500",
-#                     "name": "CAMISA VERMELHA",
-#                     "rota": "camisa-vermelha"
-#                     },
-#                     {
-#                     "image": "camisa",
-#                     "valor": "R$ 50",
-#                     "valorDesc": "R$ 200",
-#                     "name": "CAMISA LARANJA",
-#                     "rota": "camisa-laranja"
-#                     }
-#                    ]
-#     return json.dumps(masc_prods)
+        
