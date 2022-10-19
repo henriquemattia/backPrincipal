@@ -32,7 +32,7 @@ def register():
             return 'Email é obrigatório', 400
         if not password:
             return 'Senha é obrigatório', 400
-        if (session.query(UsersModel).filter(UsersModel.email == f"{email}").all()):
+        if (session.query(UsersModel).filter(UsersModel.email == f"{email}").first()):
             return "Email já cadastrado!", 400
 
         hashed = bcrypt.generate_password_hash(f"{password}").decode('utf-8')
