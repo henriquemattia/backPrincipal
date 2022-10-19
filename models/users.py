@@ -1,6 +1,5 @@
-from database.database import Base, engine, session
+from database.database import Base
 from sqlalchemy import Column, String, Integer
-# from models.products import ProductsModel
 
 
 class UsersModel(Base):
