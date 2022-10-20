@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+
 # INSERIR NOVOS DADOS NA TABELA
 
 planilha = pd.read_excel("products.xlsx")
